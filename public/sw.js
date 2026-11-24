@@ -12,6 +12,13 @@ self.addEventListener('activate', (e) =>
       .then(() => self.clients.claim()),
   ),
 );
+// The page sends every same-origin file it loaded before this worker took control,
+// so the first visit is enough to play offline.
+self.addEventListener('message', (e) => {
+  if (e.data?.type !== 'precache' || !Array.isArray(e.data.urls)) return;
+  const urls = e.data.urls.filter((u) => typeof u === 'string' && u.startsWith(self.location.origin));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(urls)).catch(() => undefined));
+});
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET' || !req.url.startsWith(self.location.origin)) return;

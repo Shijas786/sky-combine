@@ -491,4 +491,13 @@ void document.fonts.ready.then(() => {
   });
 });
 
-if (import.meta.env.PROD && 'serviceWorker' in navigator) void navigator.serviceWorker.register('./sw.js');
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  void navigator.serviceWorker
+    .register('./sw.js')
+    .then(() => navigator.serviceWorker.ready)
+    .then((reg) => {
+      const urls = performance.getEntriesByType('resource').map((r) => r.name.split('#')[0]).filter((u) => u.startsWith(location.origin));
+      reg.active?.postMessage({ type: 'precache', urls: [...new Set(urls)] });
+    })
+    .catch(() => undefined);
+}
