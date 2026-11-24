@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030611" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <title>Sky Combine · Leaderboard</title>
+  </head>
+  <body class="board">
+    <div class="board-bg"></div>
+    <header class="board-head">
+      <div>
+        <div class="eyebrow">CLOUD9 FAN COMBINE · LIVE</div>
+        <h1>SKY COMBINE <span>LEADERBOARD</span></h1>
+      </div>
+      <div class="board-stats">
+        <div><b id="statPlayers">0</b><small>PLAYERS</small></div>
+        <div><b id="statBest">--</b><small>TOP RATING</small></div>
+        <div><b id="statAvg">--</b><small>AVERAGE</small></div>
+      </div>
+    </header>
+    <div class="now" id="now"><span class="dot"></span><span id="nowText">WAITING FOR THE NEXT CHALLENGER</span></div>
+    <main class="board-main">
+      <ol class="rows" id="rows"></ol>
+      <aside class="leaders">
+        <h3>DRILL LEADERS</h3>
+        <ul id="leaders"></ul>
+        <h3>LATEST RUN</h3>
+        <div class="latest" id="latest">No runs yet</div>
+      </aside>
+    </main>
+    <footer class="board-foot">
+      <span>Works offline · scores stay on this machine</span>
+      <span class="ops">
+        <button id="csvBtn">EXPORT CSV</button>
+        <button id="clearBtn">RESET BOARD</button>
+      </span>
+    </footer>
+    <script type="module" src="/src/board.ts"></script>
+  </body>
+</html>

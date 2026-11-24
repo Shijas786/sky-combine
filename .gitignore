@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+.DS_Store
+# GRID hackathon data is licensed: never commit it
+*.zst
+*.jsonl
+grid-data/
+stl-hackathon-2026-grid-starter/
