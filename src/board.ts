@@ -49,6 +49,7 @@ function live(m: LiveMessage): void {
 }
 
 board.listen(live);
+document.querySelector<HTMLElement>('.ops')!.hidden = !new URLSearchParams(location.search).has('operator');
 $('csvBtn').addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([board.csv()], { type: 'text/csv' }));

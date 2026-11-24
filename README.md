@@ -33,7 +33,7 @@ Nimbus, the scout drone, talks the player through every step, so the booth needs
 - **No network needed.** Scores live in the browser; after the first load the game runs offline (service worker + PWA).
 - **Second-monitor leaderboard.** Open `board.html` in another window on the same machine: it updates live as people play and shows who is in the booth right now.
 - **Runs itself.** Left alone, the attract screen starts a demo run played by Nimbus (not ranked); any click hands control to the next fan. A finished run resets on its own.
-- **Operator tools.** Export the day's scores as CSV, reset the board (two-step confirm), mute (`M`), fullscreen (`F`).
+- **Operator tools.** Open `board.html?operator` to export scores as CSV or reset the board (two-step confirm); fans opening the board from the game never see these. Mute (`M`), fullscreen (`F`).
 - **Any hardware.** Render quality steps down automatically on slow GPUs so input stays responsive.
 - **No licensed content.** All art is original, all sound is synthesised at runtime, and no game or match data is used.
 

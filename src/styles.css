@@ -215,3 +215,4 @@ body.board { overflow: hidden; display: flex; flex-direction: column; padding: 3
 .board-foot { position: relative; display: flex; justify-content: space-between; font: 600 12px var(--body); letter-spacing: 0.2em; color: var(--dim); }
 .board-foot button { margin-left: 1.4em; font: 700 11px var(--body); letter-spacing: 0.2em; color: var(--dim); opacity: 0.6; }
 .board-foot button:hover { color: var(--hot); opacity: 1; }
+[hidden] { display: none !important; }
