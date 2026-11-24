@@ -21,7 +21,7 @@ export interface KeyValue {
 
 const KEY = 'sky-combine.entries.v1';
 const CHANNEL = 'sky-combine';
-const MAX_ENTRIES = 500;
+const MAX_ENTRIES = 5000;
 const BLOCKED = ['FUCK', 'SHIT', 'CUNT', 'NIGG', 'FAG', 'RAPE', 'NAZI', 'BITCH', 'DICK', 'COCK', 'PUSSY', 'SLUT', 'WHORE'];
 
 export function sanitizeName(raw: string): string {
