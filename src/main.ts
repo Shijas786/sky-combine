@@ -396,14 +396,22 @@ window.addEventListener('pointermove', (e) => {
   }
 });
 
+window.addEventListener(
+  'pointerdown',
+  (e) => {
+    if (!demoRun) return;
+    e.stopPropagation();
+    idle = 0;
+    sfx.unlock();
+    toAttract();
+    toCallsign();
+  },
+  { capture: true },
+);
+
 window.addEventListener('pointerdown', (e) => {
   idle = 0;
   sfx.unlock();
-  if (demoRun) {
-    toAttract();
-    toCallsign();
-    return;
-  }
   if (state === 'drill' && !botRun && e.button === 0) fire();
 });
 
