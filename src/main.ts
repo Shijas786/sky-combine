@@ -124,7 +124,7 @@ function buildLogo(): void {
 }
 
 function toAttract(): void {
-  drill?.dispose();
+  if (state === 'drill') drill?.dispose();
   drill = null;
   arena.clearTargets();
   hud.overlay.innerHTML = '';
