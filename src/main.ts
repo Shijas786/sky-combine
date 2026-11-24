@@ -309,7 +309,7 @@ function fire(): void {
 /* ---------- loop ---------- */
 let last = performance.now();
 function frame(now: number): void {
-  const dt = Math.min(0.05, (now - last) / 1000);
+  const dt = Math.min(0.1, (now - last) / 1000);
   last = now;
   stateTime += dt;
   idle += dt;

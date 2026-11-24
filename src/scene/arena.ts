@@ -50,6 +50,11 @@ export class Arena {
   private drift = 1;
   private coreGeo = new THREE.IcosahedronGeometry(1, 1);
   private ringGeo = new THREE.TorusGeometry(1.5, 0.05, 8, 48);
+  /** 0 = bloom at full resolution, 1 = no bloom, 2 = half resolution. Drops automatically on slow GPUs. */
+  quality = 0;
+  private frameMs = 16;
+  private lastFrame = performance.now();
+  private slowFor = 0;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -87,8 +92,24 @@ export class Arena {
     this.bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.7, 0.18);
     this.composer.addPass(this.bloom);
     this.composer.addPass(new OutputPass());
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) this.quality = Math.min(2, Math.max(0, Number(q) || 0));
     this.resize();
     window.addEventListener('resize', () => this.resize());
+  }
+
+  private adapt(): void {
+    const now = performance.now();
+    const ms = Math.min(500, now - this.lastFrame);
+    this.lastFrame = now;
+    this.frameMs += (ms - this.frameMs) * 0.1;
+    this.slowFor = this.frameMs > 34 ? this.slowFor + ms : 0;
+    if (this.slowFor > 1500 && this.quality < 2) {
+      this.quality++;
+      this.slowFor = 0;
+      this.frameMs = 16;
+      this.resize();
+    }
   }
 
   private buildGrid(): THREE.Mesh {
@@ -156,6 +177,8 @@ export class Arena {
   resize(): void {
     const w = this.canvas.clientWidth || window.innerWidth;
     const h = this.canvas.clientHeight || window.innerHeight;
+    this.renderer.setPixelRatio(this.quality === 0 ? Math.min(window.devicePixelRatio, 2) : this.quality === 1 ? 1 : 0.5);
+    this.clouds.visible = this.quality < 2;
     this.renderer.setSize(w, h, false);
     this.composer.setSize(w, h);
     this.camera.aspect = w / h;
@@ -320,6 +343,8 @@ export class Arena {
       12,
     );
     this.camera.lookAt(sway * 0.4, 2.2, 0);
-    this.composer.render();
+    this.adapt();
+    if (this.quality === 0) this.composer.render();
+    else this.renderer.render(this.scene, this.camera);
   }
 }
