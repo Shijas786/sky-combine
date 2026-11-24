@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030611" />
+    <meta name="description" content="Sky Combine: five drills, two minutes. Find out if you are pro material." />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <title>Sky Combine</title>
+  </head>
+  <body>
+    <canvas id="arena"></canvas>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-left">
+          <div class="hud-step" id="hudStep">DRILL 1 / 5</div>
+          <div class="hud-title" id="hudTitle">REACTION</div>
+        </div>
+        <div class="hud-dots" id="hudDots"></div>
+        <div class="hud-right">
+          <div class="hud-name" id="hudName">PLAYER</div>
+          <div class="hud-counter" id="hudCounter"></div>
+        </div>
+      </div>
+      <div class="timer"><div class="timer-fill" id="timerFill"></div></div>
+      <div class="prompt" id="prompt"></div>
+      <div id="overlay"></div>
+    </div>
+    <div id="floats"></div>
+    <div id="flash"></div>
+
+    <section id="attract" class="screen">
+      <div class="eyebrow">CLOUD9 FAN COMBINE · SKY'S THE LIMIT 2026</div>
+      <h1 class="logo" id="logo" aria-label="Sky Combine"></h1>
+      <p class="tagline">FIVE DRILLS. TWO MINUTES. <b>ARE YOU PRO MATERIAL?</b></p>
+      <button class="cta" id="startBtn"><span>CLICK TO ENTER THE COMBINE</span></button>
+      <div class="drill-strip">
+        <span>REACTION</span><i></i><span>FLICK</span><i></i><span>TRACKING</span><i></i><span>DISCIPLINE</span><i></i><span>MAP IQ</span>
+      </div>
+      <div class="top3" id="top3"></div>
+      <div class="demo-tag hidden" id="demoTag">DEMO RUN · CLICK ANYWHERE TO PLAY</div>
+    </section>
+
+    <section id="callsign" class="screen hidden">
+      <div class="eyebrow">STEP INTO THE BOOTH</div>
+      <h2>ENTER YOUR CALLSIGN</h2>
+      <div class="name-field"><span id="nameText"></span><em class="caret"></em></div>
+      <div class="keys" id="keys"></div>
+      <div class="row">
+        <button class="ghost" id="randomBtn">RANDOM</button>
+        <button class="ghost" id="deleteBtn">DELETE</button>
+        <button class="cta small" id="goBtn"><span>START COMBINE</span></button>
+      </div>
+    </section>
+
+    <section id="intro" class="screen hidden">
+      <div class="eyebrow" id="introStep">DRILL 1 / 5</div>
+      <h2 class="intro-title" id="introTitle">REACTION</h2>
+      <p class="intro-brief" id="introBrief"></p>
+      <div class="count" id="count">3</div>
+    </section>
+
+    <section id="result" class="screen hidden">
+      <div class="eyebrow" id="resultTitle">REACTION</div>
+      <div class="result-headline" id="resultHeadline">0</div>
+      <div class="result-detail" id="resultDetail"></div>
+      <div class="result-score"><span id="resultScore">0</span><small>/ 100</small></div>
+      <div class="result-bar"><div id="resultBar"></div></div>
+    </section>
+
+    <section id="card" class="screen hidden">
+      <div class="card-wrap">
+        <div class="card-tilt" id="cardTilt"><canvas id="cardCanvas"></canvas><div class="card-shine"></div></div>
+        <div class="card-side">
+          <div class="eyebrow" id="cardEyebrow">SCOUTING REPORT</div>
+          <div class="rank" id="rank"></div>
+          <div class="verdict" id="verdict"></div>
+          <div class="stat-rows" id="statRows"></div>
+          <div class="row">
+            <button class="ghost" id="saveBtn">SAVE CARD</button>
+            <button class="cta small" id="nextBtn"><span id="nextLabel">NEXT PLAYER</span></button>
+          </div>
+          <div class="reset-note" id="resetNote"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="corner">
+      <button id="muteBtn" title="Mute (M)">SOUND ON</button>
+      <button id="fsBtn" title="Fullscreen (F)">FULLSCREEN</button>
+      <a href="./board.html" target="_blank" rel="noopener">LEADERBOARD</a>
+    </div>
+    <div id="crosshair"><i></i><i></i><i></i><i></i><b></b></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
