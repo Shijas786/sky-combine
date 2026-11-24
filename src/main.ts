@@ -237,7 +237,7 @@ function toCard(data: { name: string; rating: number; stats: Stats }, rank: numb
   const tier = tierFor(data.rating);
   const arch = archetypeFor(data.stats);
   const total = board.all().length;
-  $('cardEyebrow').textContent = sharedView ? 'SHARED SCOUTING REPORT' : demoRun ? 'DEMO RUN · NOT RANKED' : 'SCOUTING REPORT FILED';
+  $('cardEyebrow').textContent = sharedView ? 'SHARED SCOUTING REPORT' : botRun ? 'DEMO RUN · NOT RANKED' : 'SCOUTING REPORT FILED';
   $('rank').innerHTML = rank ? `#${rank}<small>OF ${total} PLAYER${total === 1 ? '' : 'S'} TODAY</small>` : `${data.rating}<small>${tier.name}</small>`;
   $('rank').style.color = tier.color;
   $('verdict').textContent = `${tier.name} · ${arch.name}. ${arch.blurb}`;
@@ -259,7 +259,7 @@ function toCard(data: { name: string; rating: number; stats: Stats }, rank: numb
 function finishRun(): void {
   const rating = overallRating(stats);
   let rank: number | null = null;
-  if (!demoRun) {
+  if (!botRun) {
     const arch = archetypeFor(stats);
     rank = board.add({ id: `${Date.now()}-${Math.floor(Math.random() * 1e6)}`, name, rating, stats: { ...stats }, archetype: arch.name, ts: Date.now() });
   }
