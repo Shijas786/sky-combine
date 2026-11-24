@@ -61,4 +61,12 @@ describe('scoring', () => {
     expect(archetypeFor(stats(40, 40, 40, 40, 95)).name).toBe('SHOTCALLER');
     expect(archetypeFor(stats(80, 78, 75, 82, 79)).name).toBe('FLEX');
   });
+
+  it('pairs a lone correct guess with the ping it matches, not an earlier one', () => {
+    const pings = [
+      { x: 0.2, y: 0.2 },
+      { x: 0.4, y: 0.2 },
+    ];
+    expect(scoreRecall(pings, [{ x: 0.4, y: 0.2 }])).toBe(50);
+  });
 });

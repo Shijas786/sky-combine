@@ -46,27 +46,23 @@ export function scoreDiscipline(hostileHits: number, hostiles: number, friendlyH
   return toScore((hostileHits - friendlyHits * 2 - strayShots * 0.5) / hostiles);
 }
 
-/** Each ping scores by how close the nearest unclaimed guess landed (map units 0..1). */
+/** Pings and guesses are paired to maximise the total score (map units 0..1); each guess counts once. */
 export function scoreRecall(pings: Array<{ x: number; y: number }>, guesses: Array<{ x: number; y: number }>, tolerance = 0.2): number {
   if (!pings.length) return 0;
-  const free = [...guesses];
-  let total = 0;
-  for (const p of pings) {
-    let best = -1;
-    let bestD = Infinity;
-    free.forEach((g, i) => {
-      const d = Math.hypot(g.x - p.x, g.y - p.y);
-      if (d < bestD) {
-        bestD = d;
-        best = i;
-      }
+  const value = pings.map((p) => guesses.map((g) => clamp01(1 - Math.hypot(g.x - p.x, g.y - p.y) / tolerance)));
+  const used = new Array<boolean>(guesses.length).fill(false);
+  const best = (i: number): number => {
+    if (i === pings.length) return 0;
+    let top = best(i + 1);
+    guesses.forEach((_, j) => {
+      if (used[j] || value[i][j] <= 0) return;
+      used[j] = true;
+      top = Math.max(top, value[i][j] + best(i + 1));
+      used[j] = false;
     });
-    if (best >= 0) {
-      free.splice(best, 1);
-      total += clamp01(1 - bestD / tolerance);
-    }
-  }
-  return toScore(total / pings.length);
+    return top;
+  };
+  return toScore(best(0) / pings.length);
 }
 
 /** Overall rating 40..99: the mean, nudged up by the best skill so specialists are rewarded. */
