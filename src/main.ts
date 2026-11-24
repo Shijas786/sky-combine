@@ -462,7 +462,11 @@ $('goBtn').addEventListener('click', () => {
 });
 $('saveBtn').addEventListener('click', () => {
   sfx.click();
-  if (cardData) downloadCard($<HTMLCanvasElement>('cardCanvas'), cardData.name);
+  if (!cardData) return;
+  const canvas = $<HTMLCanvasElement>('cardCanvas');
+  cardAnim = 1;
+  drawCard(canvas, cardData.name, cardData.rating, cardData.stats, 1);
+  downloadCard(canvas, cardData.name);
 });
 $('nextBtn').addEventListener('click', () => {
   sfx.click();
