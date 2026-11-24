@@ -21,7 +21,7 @@ export class Sfx {
     comp.threshold.value = -14;
     comp.ratio.value = 6;
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.8;
+    this.master.gain.value = this.muted ? 0 : 0.8;
     this.master.connect(comp).connect(this.ctx.destination);
     this.musicGain = this.ctx.createGain();
     this.musicGain.gain.value = 0.0;
